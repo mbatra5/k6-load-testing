@@ -1,0 +1,8 @@
+{
+  "target": "https://rahulshettyacademy.com",
+  "pages": [
+    "/AutomationPractice/",
+    "/seleniumPractise/#/"
+  ],
+  "comment": "Demo sites for automation practice. Change 'target' and 'pages' to test your own URLs!"
+}

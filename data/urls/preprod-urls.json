@@ -1,0 +1,15 @@
+{
+  "pages": {
+    "homepage": "/",
+    "performanceTest1": "/performance-test-1",
+    "performanceTest2": "/performance-test-2",
+    "examplePage": "/example-page",
+    "exampleCareers": "/example-page/careers",
+    "exampleOffices": "/example-page/our-offices",
+    "exampleAbout": "/example-page/about-us"
+  },
+  "api": {
+    "sitemap": "/sitemap.xml",
+    "localeSitemap": "/en-gb/sitemap.xml"
+  }
+}

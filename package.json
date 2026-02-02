@@ -1,0 +1,97 @@
+{
+  "name": "k6-load-testing",
+  "version": "1.0.0",
+  "description": "K6 load testing framework with xk6-dashboard HTML reporting",
+  "type": "module",
+  "scripts": {
+    "// === SETUP ===": "",
+    "cookies-setup": "node utils/cookies-setup.js",
+    
+    "// === DEMO TESTS (Public URLs - Modular) ===": "",
+    "demo:smoke:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env DEMO_TYPE=smoke ./k6 run --out dashboard=export=reports/demo-smoke-$TIMESTAMP.html --out json=reports/demo-smoke.json scenarios/demo/demo.scenario.js",
+    "demo:smoke:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && node scripts/generate-executive-summary.js reports/demo-smoke.json reports/demo-smoke-summary-$TIMESTAMP.html demo-smoke-$TIMESTAMP.html",
+    "demo:smoke:open": "open $(ls -t reports/demo-smoke-summary-*.html | head -1) && open $(ls -t reports/demo-smoke-*.html | grep -v summary | head -1)",
+    "demo:smoke": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env DEMO_TYPE=smoke ./k6 run --out dashboard=export=reports/demo-smoke-$TIMESTAMP.html --out json=reports/demo-smoke.json scenarios/demo/demo.scenario.js && node scripts/generate-executive-summary.js reports/demo-smoke.json reports/demo-smoke-summary-$TIMESTAMP.html demo-smoke-$TIMESTAMP.html && open reports/demo-smoke-summary-$TIMESTAMP.html && open reports/demo-smoke-$TIMESTAMP.html",
+    
+    "demo:load:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env DEMO_TYPE=load ./k6 run --out dashboard=export=reports/demo-load-$TIMESTAMP.html --out json=reports/demo-load.json scenarios/demo/demo.scenario.js",
+    "demo:load:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && node scripts/generate-executive-summary.js reports/demo-load.json reports/demo-load-summary-$TIMESTAMP.html demo-load-$TIMESTAMP.html",
+    "demo:load:open": "open $(ls -t reports/demo-load-summary-*.html | head -1) && open $(ls -t reports/demo-load-*.html | grep -v summary | head -1)",
+    "demo:load": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env DEMO_TYPE=load ./k6 run --out dashboard=export=reports/demo-load-$TIMESTAMP.html --out json=reports/demo-load.json scenarios/demo/demo.scenario.js && node scripts/generate-executive-summary.js reports/demo-load.json reports/demo-load-summary-$TIMESTAMP.html demo-load-$TIMESTAMP.html && open reports/demo-load-summary-$TIMESTAMP.html && open reports/demo-load-$TIMESTAMP.html",
+    
+    "demo:stress:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env DEMO_TYPE=stress ./k6 run --out dashboard=export=reports/demo-stress-$TIMESTAMP.html --out json=reports/demo-stress.json scenarios/demo/demo.scenario.js",
+    "demo:stress:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && node scripts/generate-executive-summary.js reports/demo-stress.json reports/demo-stress-summary-$TIMESTAMP.html demo-stress-$TIMESTAMP.html",
+    "demo:stress:open": "open $(ls -t reports/demo-stress-summary-*.html | head -1) && open $(ls -t reports/demo-stress-*.html | grep -v summary | head -1)",
+    "demo:stress": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env DEMO_TYPE=stress ./k6 run --out dashboard=export=reports/demo-stress-$TIMESTAMP.html --out json=reports/demo-stress.json scenarios/demo/demo.scenario.js && node scripts/generate-executive-summary.js reports/demo-stress.json reports/demo-stress-summary-$TIMESTAMP.html demo-stress-$TIMESTAMP.html && open reports/demo-stress-summary-$TIMESTAMP.html && open reports/demo-stress-$TIMESTAMP.html",
+    
+    "demo:spike:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env DEMO_TYPE=spike ./k6 run --out dashboard=export=reports/demo-spike-$TIMESTAMP.html --out json=reports/demo-spike.json scenarios/demo/demo.scenario.js",
+    "demo:spike:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && node scripts/generate-executive-summary.js reports/demo-spike.json reports/demo-spike-summary-$TIMESTAMP.html demo-spike-$TIMESTAMP.html",
+    "demo:spike:open": "open $(ls -t reports/demo-spike-summary-*.html | head -1) && open $(ls -t reports/demo-spike-*.html | grep -v summary | head -1)",
+    "demo:spike": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env DEMO_TYPE=spike ./k6 run --out dashboard=export=reports/demo-spike-$TIMESTAMP.html --out json=reports/demo-spike.json scenarios/demo/demo.scenario.js && node scripts/generate-executive-summary.js reports/demo-spike.json reports/demo-spike-summary-$TIMESTAMP.html demo-spike-$TIMESTAMP.html && open reports/demo-spike-summary-$TIMESTAMP.html && open reports/demo-spike-$TIMESTAMP.html",
+    
+    "// === BROWSER TESTS (Chrome - Modular) ===": "",
+    "test:local:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=local ./k6 run --out dashboard=export=reports/local-$TIMESTAMP.html --out json=reports/local.json scenarios/browser/page-load.scenario.js",
+    "test:local:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/local.json reports/local-summary-$TIMESTAMP.html local-$TIMESTAMP.html",
+    "test:local:open": "open $(ls -t reports/local-summary-*.html | head -1) && open $(ls -t reports/local-*.html | grep -v summary | head -1)",
+    "test:local": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=local ./k6 run --out dashboard=export=reports/local-$TIMESTAMP.html --out json=reports/local.json scenarios/browser/page-load.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/local.json reports/local-summary-$TIMESTAMP.html local-$TIMESTAMP.html && open reports/local-summary-$TIMESTAMP.html",
+    
+    "test:smoke:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=smoke ./k6 run --out dashboard=export=reports/smoke-$TIMESTAMP.html --out json=reports/smoke.json scenarios/browser/page-load.scenario.js",
+    "test:smoke:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/smoke.json reports/smoke-summary-$TIMESTAMP.html smoke-$TIMESTAMP.html",
+    "test:smoke:open": "open $(ls -t reports/smoke-summary-*.html | head -1) && open $(ls -t reports/smoke-*.html | grep -v summary | head -1)",
+    "test:smoke": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=smoke ./k6 run --out dashboard=export=reports/smoke-$TIMESTAMP.html --out json=reports/smoke.json scenarios/browser/page-load.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/smoke.json reports/smoke-summary-$TIMESTAMP.html smoke-$TIMESTAMP.html && open reports/smoke-summary-$TIMESTAMP.html",
+    
+    "test:load:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=load ./k6 run --out dashboard=export=reports/load-$TIMESTAMP.html --out json=reports/load.json scenarios/browser/page-load.scenario.js",
+    "test:load:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/load.json reports/load-summary-$TIMESTAMP.html load-$TIMESTAMP.html",
+    "test:load:open": "open $(ls -t reports/load-summary-*.html | head -1) && open $(ls -t reports/load-*.html | grep -v summary | head -1)",
+    "test:load": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=load ./k6 run --out dashboard=export=reports/load-$TIMESTAMP.html --out json=reports/load.json scenarios/browser/page-load.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/load.json reports/load-summary-$TIMESTAMP.html load-$TIMESTAMP.html && open reports/load-summary-$TIMESTAMP.html",
+    
+    "test:stress:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=stress ./k6 run --out dashboard=export=reports/stress-$TIMESTAMP.html --out json=reports/stress.json scenarios/browser/page-load.scenario.js",
+    "test:stress:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/stress.json reports/stress-summary-$TIMESTAMP.html stress-$TIMESTAMP.html",
+    "test:stress:open": "open $(ls -t reports/stress-summary-*.html | head -1) && open $(ls -t reports/stress-*.html | grep -v summary | head -1)",
+    "test:stress": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=stress ./k6 run --out dashboard=export=reports/stress-$TIMESTAMP.html --out json=reports/stress.json scenarios/browser/page-load.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/stress.json reports/stress-summary-$TIMESTAMP.html stress-$TIMESTAMP.html && open reports/stress-summary-$TIMESTAMP.html",
+    
+    "test:spike:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=spike ./k6 run --out dashboard=export=reports/spike-$TIMESTAMP.html --out json=reports/spike.json scenarios/browser/page-load.scenario.js",
+    "test:spike:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/spike.json reports/spike-summary-$TIMESTAMP.html spike-$TIMESTAMP.html",
+    "test:spike:open": "open $(ls -t reports/spike-summary-*.html | head -1) && open $(ls -t reports/spike-*.html | grep -v summary | head -1)",
+    "test:spike": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=spike ./k6 run --out dashboard=export=reports/spike-$TIMESTAMP.html --out json=reports/spike.json scenarios/browser/page-load.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/spike.json reports/spike-summary-$TIMESTAMP.html spike-$TIMESTAMP.html && open reports/spike-summary-$TIMESTAMP.html",
+    
+    "test:soak:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=soak ./k6 run --out dashboard=export=reports/soak-$TIMESTAMP.html --out json=reports/soak.json scenarios/browser/page-load.scenario.js",
+    "test:soak:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/soak.json reports/soak-summary-$TIMESTAMP.html soak-$TIMESTAMP.html",
+    "test:soak:open": "open $(ls -t reports/soak-summary-*.html | head -1) && open $(ls -t reports/soak-*.html | grep -v summary | head -1)",
+    "test:soak": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=soak ./k6 run --out dashboard=export=reports/soak-$TIMESTAMP.html --out json=reports/soak.json scenarios/browser/page-load.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/soak.json reports/soak-summary-$TIMESTAMP.html soak-$TIMESTAMP.html && open reports/soak-summary-$TIMESTAMP.html",
+    
+    "// === HTTP API TESTS (Higher VU Capacity - Modular) ===": "",
+    "api:smoke:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=smoke ./k6 run --out dashboard=export=reports/api-smoke-$TIMESTAMP.html --out json=reports/api-smoke.json scenarios/http/api-endpoints.scenario.js",
+    "api:smoke:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/api-smoke.json reports/api-smoke-summary-$TIMESTAMP.html api-smoke-$TIMESTAMP.html",
+    "api:smoke:open": "open $(ls -t reports/api-smoke-summary-*.html | head -1) && open $(ls -t reports/api-smoke-*.html | grep -v summary | head -1)",
+    "api:smoke": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=smoke ./k6 run --out dashboard=export=reports/api-smoke-$TIMESTAMP.html --out json=reports/api-smoke.json scenarios/http/api-endpoints.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/api-smoke.json reports/api-smoke-summary-$TIMESTAMP.html api-smoke-$TIMESTAMP.html && open reports/api-smoke-summary-$TIMESTAMP.html",
+    
+    "api:load:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=load ./k6 run --out dashboard=export=reports/api-load-$TIMESTAMP.html --out json=reports/api-load.json scenarios/http/api-endpoints.scenario.js",
+    "api:load:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/api-load.json reports/api-load-summary-$TIMESTAMP.html api-load-$TIMESTAMP.html",
+    "api:load:open": "open $(ls -t reports/api-load-summary-*.html | head -1) && open $(ls -t reports/api-load-*.html | grep -v summary | head -1)",
+    "api:load": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=load ./k6 run --out dashboard=export=reports/api-load-$TIMESTAMP.html --out json=reports/api-load.json scenarios/http/api-endpoints.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/api-load.json reports/api-load-summary-$TIMESTAMP.html api-load-$TIMESTAMP.html && open reports/api-load-summary-$TIMESTAMP.html",
+    
+    "api:stress:run": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=stress ./k6 run --out dashboard=export=reports/api-stress-$TIMESTAMP.html --out json=reports/api-stress.json scenarios/http/api-endpoints.scenario.js",
+    "api:stress:report": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/api-stress.json reports/api-stress-summary-$TIMESTAMP.html api-stress-$TIMESTAMP.html",
+    "api:stress:open": "open $(ls -t reports/api-stress-summary-*.html | head -1) && open $(ls -t reports/api-stress-*.html | grep -v summary | head -1)",
+    "api:stress": "TIMESTAMP=$(date +%Y%m%d-%H%M%S) && cross-env TEST_TYPE=stress ./k6 run --out dashboard=export=reports/api-stress-$TIMESTAMP.html --out json=reports/api-stress.json scenarios/http/api-endpoints.scenario.js && cross-env ENV=$ENV node scripts/generate-executive-summary.js reports/api-stress.json reports/api-stress-summary-$TIMESTAMP.html api-stress-$TIMESTAMP.html && open reports/api-stress-summary-$TIMESTAMP.html",
+    
+    "// === UTILITIES ===": "",
+    "clean": "rimraf reports/*.html reports/*.json",
+    "clean:json": "rimraf reports/*.json",
+    "open-reports": "open reports/",
+    "help": "echo 'Run tests: npm run demo:smoke | With ENV: ENV=CANARY npm run test:smoke | Open latest: npm run demo:smoke:open'"
+  },
+  "keywords": [
+    "k6",
+    "load-testing",
+    "performance-testing",
+    "xk6-dashboard"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "playwright": "^1.48.0",
+    "rimraf": "^6.0.1"
+  }
+}
