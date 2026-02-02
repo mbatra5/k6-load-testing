@@ -163,12 +163,12 @@ k6-load-testing/
  */
 
 export const environments = {
-  PREPROD: 'https://preprod.example.com',
-  STAGING: 'https://staging.example.com',
-  CANARY: 'https://canary.example.com',
-  RELEASE: 'https://release.example.com',
-  BETA: 'https://beta.example.com',
-  PROD: 'https://www.example.com'
+  PREPROD: 'https://preprod-bp.navitas.bpglobal.com',
+  STAGING: 'https://staging-bp.navitas.bpglobal.com',
+  CANARY: 'https://canary-bp.navitas.bpglobal.com',
+  RELEASE: 'https://release-bp.navitas.bpglobal.com',
+  BETA: 'https://beta-bp.navitas.bpglobal.com',
+  PROD: 'https://www.bp.com'
 };
 
 /**
@@ -486,7 +486,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Configuration
-const TARGET_URL = 'https://preprod.example.com';  // Change to your URL
+const TARGET_URL = 'https://preprod-bp.navitas.bpglobal.com';  // Change to your URL
 const COOKIES_OUTPUT = resolve(__dirname, 'cookies.json');
 
 async function setupCookies() {
@@ -999,7 +999,7 @@ Create URL configuration files for each environment:
 **1. data/urls/preprod-urls.json:**
 ```json
 {
-  "target": "https://preprod.example.com",
+  "target": "https://preprod-bp.navitas.bpglobal.com",
   "pages": {
     "homepage": "/",
     "blog": "/blog",
@@ -1012,7 +1012,7 @@ Create URL configuration files for each environment:
 **2. data/urls/canary-urls.json:**
 ```json
 {
-  "target": "https://canary.example.com",
+  "target": "https://canary-bp.navitas.bpglobal.com",
   "pages": {
     "homepage": "/"
   }
@@ -1163,12 +1163,12 @@ const __dirname = dirname(__filename);
 
 // Environment mapping (mirrors env.config.js for Node.js runtime)
 const environments = {
-  PREPROD: 'https://preprod.example.com',
-  STAGING: 'https://staging.example.com',
-  CANARY: 'https://canary.example.com',
-  RELEASE: 'https://release.example.com',
-  BETA: 'https://beta.example.com',
-  PROD: 'https://www.example.com'
+  PREPROD: 'https://preprod-bp.navitas.bpglobal.com',
+  STAGING: 'https://staging-bp.navitas.bpglobal.com',
+  CANARY: 'https://canary-bp.navitas.bpglobal.com',
+  RELEASE: 'https://release-bp.navitas.bpglobal.com',
+  BETA: 'https://beta-bp.navitas.bpglobal.com',
+  PROD: 'https://www.bp.com'
 };
 
 const jsonFile = process.argv[2];
@@ -1479,7 +1479,7 @@ utils/cookies.json
 ENV=PREPROD
 
 # Or use direct URL for feature branches
-# ENV=https://feature-branch-name.example.com
+# ENV=https://feature-branch-name.bpglobal.com
 
 # xk6-dashboard Configuration (optional)
 DASHBOARD_HOST=127.0.0.1
@@ -1727,7 +1727,7 @@ npm run demo:load:open
 ```bash
 cat > data/urls/canary-urls.json << 'EOF'
 {
-  "target": "https://canary.example.com",
+  "target": "https://canary-bp.navitas.bpglobal.com",
   "pages": {
     "homepage": "/"
   }
@@ -1742,7 +1742,7 @@ ENV=CANARY npm run test:smoke:run
 
 # Expected:
 # - k6 loads canary-urls.json
-# - Tests https://canary.example.com/
+# - Tests https://canary-bp.navitas.bpglobal.com/
 # - Creates smoke.json and smoke-{timestamp}.html
 ```
 
@@ -1752,7 +1752,7 @@ ENV=CANARY npm run test:smoke:run
 ENV=CANARY npm run test:smoke:report
 
 # Expected:
-# - Executive summary shows "Target: https://canary.example.com"
+# - Executive summary shows "Target: https://canary-bp.navitas.bpglobal.com"
 ```
 
 ---

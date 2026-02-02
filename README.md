@@ -225,7 +225,7 @@ sequenceDiagram
     Scenario->>NPM: Generate smoke.json
     NPM->>Report: Pass ENV to report script
     Report->>Report: Lookup CANARY URL
-    Report->>User: smoke-summary-{timestamp}.html<br/>Target: https://canary.example.com
+    Report->>User: smoke-summary-TIMESTAMP.html<br/>Target: https://canary-bp.navitas.bpglobal.com
 ```
 
 **How It Works:**
@@ -268,7 +268,7 @@ graph TD
     Metrics --> DashWriter[Write dashboard HTML]
     
     JSONWriter --> JSONFile[reports/smoke.json]
-    DashWriter --> DashHTML[reports/smoke-{timestamp}.html]
+    DashWriter --> DashHTML["reports/smoke-TIMESTAMP.html"]
     
     JSONFile --> NodeScript[Node.js report script]
     NodeScript --> ParseJSON[Parse NDJSON]
@@ -276,7 +276,7 @@ graph TD
     CalcStats --> GenFindings[Generate 10 findings]
     GenFindings --> LoadTemplate[Load HTML template]
     LoadTemplate --> Populate[Populate placeholders]
-    Populate --> SummaryHTML[reports/smoke-summary-{timestamp}.html]
+    Populate --> SummaryHTML["reports/smoke-summary-TIMESTAMP.html"]
 ```
 
 **File Outputs:**
@@ -341,7 +341,7 @@ Example `data/urls/canary-urls.json`:
 
 ```json
 {
-  "target": "https://canary.example.com",
+  "target": "https://canary-bp.navitas.bpglobal.com",
   "pages": {
     "homepage": "/",
     "products": "/products",
@@ -854,13 +854,13 @@ ENV=STAGING npm run test:load
 ENV=PREPROD npm run test:stress  # Default if ENV not specified
 
 # Or use direct URL for feature branches
-ENV=https://feature-branch-name.example.com npm run test:smoke
+ENV=https://feature-branch-name.bpglobal.com npm run test:smoke
 ```
 
 **How it works:**
 1. Environment name (e.g., `CANARY`) is passed to the test
 2. Test scenario loads URLs from `data/urls/canary-urls.json`
-3. Report generator automatically populates target URL: `https://canary.example.com`
+3. Report generator automatically populates target URL: `https://canary-bp.navitas.bpglobal.com`
 
 ### Environment Mapping
 
@@ -868,12 +868,12 @@ Environments are defined in `config/env.config.js`:
 
 ```javascript
 export const environments = {
-  PREPROD: 'https://preprod.example.com',
-  STAGING: 'https://staging.example.com',
-  CANARY: 'https://canary.example.com',
-  RELEASE: 'https://release.example.com',
-  BETA: 'https://beta.example.com',
-  PROD: 'https://www.example.com'
+  PREPROD: 'https://preprod-bp.navitas.bpglobal.com',
+  STAGING: 'https://staging-bp.navitas.bpglobal.com',
+  CANARY: 'https://canary-bp.navitas.bpglobal.com',
+  RELEASE: 'https://release-bp.navitas.bpglobal.com',
+  BETA: 'https://beta-bp.navitas.bpglobal.com',
+  PROD: 'https://www.bp.com'
 };
 ```
 
